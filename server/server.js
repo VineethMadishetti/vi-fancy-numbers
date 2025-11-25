@@ -24,7 +24,7 @@ app.use(helmet());
 
 // 2. CORS Configuration (CRITICAL FIX)
 // We allow both localhost variants to prevent errors
-const allowedOrigins = ['http://localhost:5173', 'http://127.0.0.1:5173', process.env.CLIENT_URL];
+const allowedOrigins = ['http://localhost:5173', 'http://127.0.0.1:5173', 'https://vi-fancy-numbers.onrender.com', process.env.CLIENT_URL];
 
 app.use(cors({
   origin: function (origin, callback) {
