@@ -1,0 +1,78 @@
+.services-section {
+    background-color: #DFEBFB;
+    padding: 80px 0;
+}
+
+.service-card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    height: 100%;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+    border-color: rgba(255, 198, 0, 0.5); /* Subtle Yellow Border on Hover */
+}
+
+.service-icon-box {
+    width: 70px;
+    height: 70px;
+    background: #fff5f5; /* Light Red BG */
+    border-radius: 50%;
+    color: var(--primary);
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem auto;
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover .service-icon-box {
+    transform: scale(1.1) rotate(5deg);
+    background: var(--primary);
+    color: white;
+}
+
+/* --- MOBILE OPTIMIZATION --- */
+@media (max-width: 768px) {
+    .services-section {
+        padding: 50px 0;
+    }
+
+    .service-card {
+        padding: 1.5rem;
+        border-radius: 16px;
+        /* Flex layout for mobile: Icon left, text right */
+        display: flex;
+        flex-direction: row; 
+        align-items: center;
+        text-align: left !important; /* Override center alignment */
+        gap: 15px;
+        min-height: auto; /* Remove fixed height constraint */
+    }
+
+    .service-icon-box {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+        min-width: 50px; /* Prevent shrinking */
+        margin: 0; /* Remove auto margin */
+    }
+
+    .service-card h5 {
+        font-size: 1.1rem;
+        margin-bottom: 4px;
+    }
+
+    .service-card p {
+        font-size: 0.85rem;
+        line-height: 1.4;
+        margin-bottom: 0;
+    }
+}

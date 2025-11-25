@@ -1,0 +1,146 @@
+/* src/styles/vip-numbers.css */
+
+.vip-section {
+  padding: 60px 0; 
+  background-color: #FDF6EC;
+}
+
+/* --- FILTER BAR --- */
+.filter-bar {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 40px;
+}
+
+.search-input {
+  border: 2px solid #f0f0f0;
+  border-radius: 12px;
+  padding: 12px 15px;
+  padding-left: 45px !important; 
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.2s;
+  background: #fdfdfd;
+}
+
+.search-input:focus {
+  border-color: var(--primary);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(218, 41, 28, 0.1);
+}
+
+.filter-icon {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  color: #aaa;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* --- CARD & GLOW EFFECT --- */
+.number-card {
+  border-radius: 18px;
+  background: white;
+  border: 1px solid rgba(0,0,0,0.06);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: visible; 
+  z-index: 1;
+}
+
+.number-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 191, 72, 0.836); 
+  box-shadow: 
+    0 15px 35px -5px rgba(255, 73, 41, 0.575), 
+    0 0 12px rgba(255, 205, 67, 0.2);         
+  z-index: 10; 
+}
+
+.vip-number-text {
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #2F3043;
+  margin-bottom: 5px;
+  font-size: 1.5rem; 
+}
+
+/* --- MOBILE OPTIMIZATION --- */
+@media (max-width: 576px) {
+  .vip-section {
+    padding: 30px 0;
+  }
+
+  /* Compact Filter Bar */
+  .filter-bar {
+    padding: 10px 12px; /* Tighter container */
+    margin-bottom: 20px;
+    border-radius: 14px;
+  }
+  
+  .search-input {
+    padding: 0 10px;
+    padding-left: 30px !important; /* Tighter icon spacing */
+    font-size: 0.8rem; /* Smaller text */
+    height: 34px; /* Reduced Height */
+  }
+
+  .filter-icon {
+    left: 10px;
+    font-size: 0.75rem;
+  }
+
+  .reset-btn {
+    height: 34px; /* Match input height */
+    padding: 0 !important;
+    font-size: 0.9rem !important; /* Icon size */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px !important;
+  }
+
+  /* Compact Cards */
+  .vip-grid-col {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+  }
+
+  .number-card {
+    border-radius: 12px;
+    margin-bottom: 5px;
+  }
+
+  .number-card .card-body {
+    padding: 10px !important; 
+  }
+
+  .vip-number-text {
+    font-size: 1.15rem; 
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  .vip-badge {
+    font-size: 0.65rem !important;
+    padding: 2px 5px !important;
+  }
+
+  .vip-buy-btn {
+    padding: 4px 0 !important;
+    font-size: 0.75rem !important;
+    border-radius: 8px !important; 
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .number-card:hover {
+    transform: translateY(-2px);
+  }
+}

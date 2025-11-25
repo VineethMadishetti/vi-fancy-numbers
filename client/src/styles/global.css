@@ -1,0 +1,56 @@
+:root {
+  --primary: #DA291C; /* Vi Red */
+  --secondary: #FFC600; /* Vi Yellow */
+  --dark: #202020;
+  --text-grey: #666666;
+  --bg-light: #F9FAFB;
+  --white: #ffffff;
+  --glass: rgba(255, 255, 255, 0.9);
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 12px 24px rgba(218, 41, 28, 0.15);
+  --radius: 16px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-light);
+  color: var(--dark);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Utilities */
+.text-primary-vi { color: var(--primary); }
+.bg-primary-vi { background-color: var(--primary); color: white; }
+
+.btn-vi {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 24px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(218, 41, 28, 0.3);
+}
+
+.btn-vi:hover {
+  background: #b01c11;
+  transform: translateY(-2px);
+  color: white;
+  box-shadow: 0 6px 20px rgba(218, 41, 28, 0.4);
+}
