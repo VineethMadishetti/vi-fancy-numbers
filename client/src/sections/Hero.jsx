@@ -16,7 +16,7 @@ const Hero = () => {
               transition={{ duration: 0.6 }}
             >
               <span className="hero-badge">Official Vi Partner</span>
-              <h1 className="display-4 hero-title mb-3">
+              <h1 className="display-3 hero-title mb-3">
                 Premium Numbers, <br/>
                 <span className="text-primary-vi">Exclusive Identity.</span>
               </h1>
