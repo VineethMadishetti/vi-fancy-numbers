@@ -56,7 +56,7 @@ const VIPNumbers = () => {
       <Container>
         <div className="text-center mb-4 mb-md-5">
           <h6 className="text-primary-vi fw-bold text-uppercase small ls-2">Inventory</h6>
-          <h2 className="fw-bolder display-6">Choose Your Number</h2>
+          <h2 className="fw-bolder display-6">Choose Your VIP Number</h2>
         </div>
 
         {/* Filter Bar */}

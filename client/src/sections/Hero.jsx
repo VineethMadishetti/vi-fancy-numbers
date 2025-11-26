@@ -16,12 +16,13 @@ const Hero = () => {
               transition={{ duration: 0.6 }}
             >
               <span className="hero-badge">Official Vi Partner</span>
-              <h1 className="display-3 hero-title mb-3">
-                Premium Numbers, <br/>
-                <span className="text-primary-vi">Exclusive Identity.</span>
+              <h1 className="display-4 hero-title mb-3">
+                Get Noticed,<br/>
+                <span className="text-primary-vi"> Stay Remembered.</span>
               </h1>
               <p className="lead text-muted mb-4" style={{ maxWidth: '500px' }}>
-                Upgrade your digital identity with a VIP number. 100% legal transfer, instant activation, and lifetime support.
+                Upgrade your digital identity with a VIP number.<br/> 
+                100% legal transfer, instant activation & lifetime support.
               </p>
               
               <div className="d-flex gap-3 flex-wrap justify-content-md-start justify-content-center">
