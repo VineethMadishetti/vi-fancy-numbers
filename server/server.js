@@ -11,7 +11,6 @@ const numberRoutes = require('./routes/numberRoutes');
 
 // Load env vars
 dotenv.config();
-
 // Connect to Database
 connectDB();
 
