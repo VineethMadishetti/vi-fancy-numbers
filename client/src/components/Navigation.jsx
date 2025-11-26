@@ -11,6 +11,14 @@ const Navigation = () => {
   // Function to close sidebar
   const closeMenu = () => setExpanded(false);
 
+  // Scroll to top and close menu (safe for SSR)
+  const scrollToTopAndClose = () => {
+    if (typeof window !== 'undefined' && window.scrollTo) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    closeMenu();
+  };
+
   return (
     <Navbar 
       expand="lg" 
@@ -20,7 +28,7 @@ const Navigation = () => {
       onToggle={(val) => setExpanded(val)}
     >
       <Container>
-        <Navbar.Brand as={Link} to="/" onClick={closeMenu}>
+        <Navbar.Brand as={Link} to="/" onClick={() => { scrollToTopAndClose(); }}>
           <img src={viLogo} alt="Vi Logo" height="45" />
         </Navbar.Brand>
         
@@ -49,7 +57,7 @@ const Navigation = () => {
           
           <Offcanvas.Body>
             <Nav className="justify-content-end flex-grow-1 pe-3 align-items-lg-center">
-              <Nav.Link href="#home" className="nav-link-custom" onClick={closeMenu}>Home</Nav.Link>
+              <Nav.Link href="#home" className="nav-link-custom" onClick={(e) => { e.preventDefault(); scrollToTopAndClose(); }}>Home</Nav.Link>
               <Nav.Link href="#vip-numbers" className="nav-link-custom" onClick={closeMenu}>VIP Numbers</Nav.Link>
               <Nav.Link href="#services" className="nav-link-custom" onClick={closeMenu}>Services</Nav.Link>
               <Nav.Link href="#contact" className="nav-link-custom" onClick={closeMenu}>Contact Us</Nav.Link>
