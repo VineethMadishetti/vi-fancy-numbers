@@ -1,3 +1,6 @@
+/* 1. Import the Font (Must be at the very top) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
 :root {
   --primary: #DA291C; /* Vi Red */
   --secondary: #FFC600; /* Vi Yellow */
@@ -5,17 +8,27 @@
   --text-grey: #666666;
   --bg-light: #F9FAFB;
   --white: #ffffff;
-  --glass: rgba(255, 255, 255, 0.9);
-  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
-  --shadow-hover: 0 12px 24px rgba(218, 41, 28, 0.15);
-  --radius: 16px;
+  
+  /* Define the font variable */
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
+/* 2. The "Nuclear" Option - Force Font on Everything */
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-main);
   background-color: var(--bg-light);
   color: var(--dark);
-  -webkit-font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased; /* Makes text look sharper */
+}
+
+/* 3. Explicitly Override Bootstrap Elements */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6,
+.display-1, .display-2, .display-3, .display-4, .display-5, .display-6,
+.navbar, .navbar-brand, .nav-link,
+.btn, .form-control, input, textarea, select,
+span, p, a, div {
+  font-family: var(--font-main) !important;
 }
 
 /* Custom Scrollbar */
@@ -34,8 +47,8 @@ body {
 }
 
 /* Utilities */
-.text-primary-vi { color: var(--primary); }
-.bg-primary-vi { background-color: var(--primary); color: white; }
+.text-primary-vi { color: var(--primary) !important; }
+.bg-primary-vi { background-color: var(--primary) !important; color: white; }
 
 .btn-vi {
   background: var(--primary);
@@ -46,6 +59,7 @@ body {
   font-weight: 600;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(218, 41, 28, 0.3);
+  font-family: var(--font-main) !important; /* Force on custom buttons too */
 }
 
 .btn-vi:hover {
