@@ -29,8 +29,7 @@ const Hero = () => {
                   Explore Numbers <FaChevronRight size={14} className="ms-1"/>
                 </Button>
               </div>
-
-              <div className="d-flex gap-4 mt-5 justify-content-md-start justify-content-center text-muted small fw-bold">
+            <div className="d-flex gap-4 mt-5 justify-content-md-start justify-content-center text-muted small fw-bold">
                  <span>🛡️ 100% Secure</span>
                  <span>⚡ 24hr Activation</span>
                  <span>💎 Verified List</span>
@@ -43,7 +42,7 @@ const Hero = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-            >
+            > 
               <img 
                 src={heroImg} 
                 alt="Vi VIP Numbers" 
@@ -52,6 +51,7 @@ const Hero = () => {
                 fetchPriority="high"
               />
             </motion.div>
+            
           </Col>
         </Row>
       </Container>
