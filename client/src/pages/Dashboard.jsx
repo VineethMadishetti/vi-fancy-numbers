@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from '../axios';
 import { Container, Row, Col, Card, Form, Button, Table, Tab, Tabs, Alert, Badge } from 'react-bootstrap';
-import { FaTrash, FaPlus, FaSignOutAlt, FaHome, FaUpload, FaSearch } from 'react-icons/fa';
+import { FaTrash, FaPlus, FaSignOutAlt, FaHome, FaUpload, FaSearch, FaDownload, FaFileExcel, FaTimes } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import * as XLSX from 'xlsx';
 import '../styles/dashboard.css';
@@ -13,7 +13,10 @@ const Dashboard = () => {
   const [selectedIds, setSelectedIds] = useState([]); 
   const [newNumber, setNewNumber] = useState('');
   const [bulkText, setBulkText] = useState('');
+  const [excelFile, setExcelFile] = useState(null); // State for the selected file
   const [message, setMessage] = useState(null);
+  
+  const fileInputRef = useRef(null); // Ref to clear file input
   const navigate = useNavigate();
 
   const isValidMobile = (num) => /^\d{10}$/.test(String(num).trim());
@@ -77,6 +80,9 @@ const Dashboard = () => {
       setMessage({ type: 'success', text: `Added ${uniqueNumbers.length} numbers.` });
       fetchNumbers();
       setBulkText('');
+      // Clear file selection on success
+      setExcelFile(null);
+      if(fileInputRef.current) fileInputRef.current.value = ""; 
     } catch (error) {
       setMessage({ type: 'warning', text: 'Uploaded with duplicates skipped.' });
       fetchNumbers();
@@ -89,9 +95,24 @@ const Dashboard = () => {
       uploadBulk(rawList);
   };
 
-  const handleFileUpload = (e) => {
+  // 1. Handle File Selection Only
+  const handleFileSelect = (e) => {
     const file = e.target.files[0];
-    if (!file) return;
+    if (file) {
+        setExcelFile(file);
+        setMessage(null);
+    }
+  };
+
+  // 2. Clear File Selection
+  const clearSelectedFile = () => {
+      setExcelFile(null);
+      if(fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  // 3. Process File on Button Click
+  const handleProcessExcel = () => {
+    if (!excelFile) return;
     const reader = new FileReader();
     reader.onload = (event) => {
       const wb = XLSX.read(event.target.result, { type: 'binary' });
@@ -100,7 +121,22 @@ const Dashboard = () => {
       const flatNumbers = data.flat().filter(n => n);
       uploadBulk(flatNumbers);
     };
-    reader.readAsBinaryString(file);
+    reader.readAsBinaryString(excelFile);
+  };
+
+  // 4. Download Feature
+  const handleDownload = () => {
+    if (numbers.length === 0) {
+        setMessage({ type: 'warning', text: 'No numbers to export.' });
+        return;
+    }
+    const ws = XLSX.utils.json_to_sheet(numbers.map(n => ({ 
+        Number: n.number, 
+        AddedOn: new Date(n.createdAt).toLocaleDateString() 
+    })));
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Inventory");
+    XLSX.writeFile(wb, "VIP_Numbers_Inventory.xlsx");
   };
 
   const handleDeleteSingle = async (id) => {
@@ -130,7 +166,7 @@ const Dashboard = () => {
 
   return (
     <div className="bg-light min-vh-100">
-      {/* Admin Navbar - Responsive */}
+      {/* Admin Navbar */}
       <div className="bg-white border-bottom px-3 px-md-4 py-3 sticky-top d-flex justify-content-between align-items-center shadow-sm">
           <div className="d-flex align-items-center gap-2">
             <h5 className="m-0 fw-bold text-dark d-none d-sm-block">Admin Panel</h5>
@@ -159,7 +195,7 @@ const Dashboard = () => {
                     {/* LIST TAB */}
                     <Tab eventKey="list" title="Inventory" className="p-2 p-md-3">
                        
-                       {/* Toolbar - Stacked on Mobile */}
+                       {/* Toolbar */}
                        <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 gap-3">
                            <div className="flex-grow-1 w-100" style={{ maxWidth: '400px' }}>
                                <div className="input-group">
@@ -175,6 +211,12 @@ const Dashboard = () => {
                            </div>
                            <div className="d-flex justify-content-between align-items-center gap-2">
                                <Badge bg="secondary" className="p-2">Total: {numbers.length}</Badge>
+                               
+                               {/* Download Button Added Here */}
+                               <Button variant="outline-success" size="sm" onClick={handleDownload} className="rounded-pill d-flex align-items-center">
+                                   <FaDownload className="me-1" /> Export
+                               </Button>
+
                                {selectedIds.length > 0 && (
                                    <Button variant="danger" size="sm" onClick={handleMultiDelete} className="rounded-pill">
                                        <FaTrash /> Delete ({selectedIds.length})
@@ -248,12 +290,45 @@ const Dashboard = () => {
                                             onChange={(e) => setBulkText(e.target.value)}
                                             className="mb-2 font-monospace text-muted small"
                                           />
-                                          <Button onClick={handleProcessTextData} disabled={!bulkText} variant="outline-dark" size="sm" className="w-100">Process Text</Button>
+                                          <Button onClick={handleProcessTextData} disabled={!bulkText} variant="outline-dark" size="sm" className="w-100">Add Numbers</Button>
                                       </div>
-                                      <div className="d-flex flex-column justify-content-center border-start-md ps-md-3 pt-3 pt-md-0 border-top border-top-md-0">
+                                      
+                                      {/* Updated Excel Section */}
+                                      <div className="d-flex flex-column justify-content-center border-start-md ps-md-3 pt-3 pt-md-0 border-top border-top-md-0" style={{minWidth: '220px'}}>
                                           <Form.Label className="small fw-bold">Upload Excel (.xlsx)</Form.Label>
-                                          <Form.Control type="file" size="sm" accept=".xlsx" onChange={handleFileUpload} />
-                                          <Form.Text className="text-muted small mt-2">Column A must contain numbers.</Form.Text>
+                                          
+                                          {/* File Input */}
+                                          <Form.Control 
+                                            type="file" 
+                                            size="sm" 
+                                            accept=".xlsx" 
+                                            ref={fileInputRef}
+                                            onChange={handleFileSelect} 
+                                            className="mb-2"
+                                          />
+                                          
+                                          {/* Dynamic Action Buttons */}
+                                          {excelFile ? (
+                                              <div className="d-flex gap-1 animate__animated animate__fadeIn">
+                                                  <Button 
+                                                    variant="success" 
+                                                    size="sm" 
+                                                    className="w-100 d-flex align-items-center justify-content-center"
+                                                    onClick={handleProcessExcel}
+                                                  >
+                                                      <FaFileExcel className="me-1"/> Upload
+                                                  </Button>
+                                                  <Button variant="outline-danger" size="sm" onClick={clearSelectedFile}>
+                                                      <FaTimes />
+                                                  </Button>
+                                              </div>
+                                          ) : (
+                                              <div className="text-muted small fst-italic mt-1">
+                                                Select a file to review before uploading.
+                                              </div>
+                                          )}
+                                          
+                                          <Form.Text className="text-muted small mt-2 d-block">Column A must contain numbers.</Form.Text>
                                       </div>
                                    </div>
                                </Card>
