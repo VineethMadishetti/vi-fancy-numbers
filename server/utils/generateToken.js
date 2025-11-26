@@ -6,10 +6,9 @@ const generateToken = (res, userId) => {
   });
 
   res.cookie('jwt', token, {
-    httpOnly: true, // Prevents client-side JS from reading the cookie (XSS protection)
-    secure: process.env.NODE_ENV !== 'development',// Use secure cookies in production (HTTPS)
-    secure: true,
-    sameSite: 'none', // CSRF protection
+    httpOnly: true,     // Prevents client-side JS from reading the cookie (XSS protection)
+    secure: true,       // CRITICAL: Must be true for HTTPS (Vercel/Render)
+    sameSite: 'none',   // CRITICAL: Must be 'none' to allow Cross-Site cookies
     maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
   });
 };
