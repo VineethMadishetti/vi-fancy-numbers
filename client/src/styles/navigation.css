@@ -6,27 +6,98 @@
   transition: all 0.3s ease;
 }
 
-.nav-link-custom {
-  font-weight: 500;
-  color: var(--dark) !important;
-  margin: 0 10px;
-  font-size: 0.95rem;
-  transition: color 0.2s;
+/* =========================================
+   DESKTOP STYLES (Screen > 992px)
+   ========================================= */
+@media (min-width: 992px) {
+  .nav-link-custom {
+    font-weight: 500;
+    color: var(--dark) !important;
+    margin: 0 10px;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+  }
+
+  .nav-link-custom:hover {
+    color: var(--primary) !important;
+  }
+
+  .admin-btn-nav {
+    border: 1px solid #eee;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--dark);
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .admin-btn-nav:hover {
+    background: var(--dark);
+    color: white !important;
+  }
 }
 
-.nav-link-custom:hover {
-  color: var(--primary) !important;
-}
+/* =========================================
+   MOBILE SIDE DRAWER STYLES (Screen < 992px)
+   ========================================= */
+@media (max-width: 991.98px) {
+  /* This class is applied to the Offcanvas container */
+  .sidebar-menu {
+    background-color: #333333 !important; /* Grey Background */
+    color: white !important;
+    width: 280px !important; /* Fixed width sidebar */
+    border-left: 1px solid rgba(255,255,255,0.1);
+  }
 
-.admin-btn-nav {
-  border: 1px solid #eee;
-  padding: 8px 20px;
-  border-radius: 50px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--dark);
-}
-.admin-btn-nav:hover {
-  background: #ffa590;
-  color: white;
+  /* Link Styling for Dark Background */
+  .sidebar-menu .nav-link {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 1.1rem;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-weight: 500;
+  }
+
+  .sidebar-menu .nav-link:hover,
+  .sidebar-menu .nav-link:focus {
+    color: #FFC600 !important; /* Vi Yellow on Hover */
+    padding-left: 10px; /* Slide effect */
+    transition: all 0.2s ease;
+  }
+
+  /* Admin Button in Sidebar */
+  .sidebar-menu .admin-btn-nav {
+    margin-top: 25px;
+    display: block;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 10px;
+    border-radius: 50px;
+    color: white !important;
+    text-decoration: none;
+  }
+
+  .sidebar-menu .admin-btn-nav:hover {
+    background-color: white;
+    color: #333 !important;
+  }
+
+  /* Header inside sidebar (Logo/Title area) */
+  .offcanvas-header {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 20px;
+  }
+
+  .offcanvas-title {
+    color: white;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+  
+  /* Make the Close 'X' button white */
+  .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+  }
 }

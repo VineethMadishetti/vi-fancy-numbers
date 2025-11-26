@@ -45,6 +45,14 @@ const VIPNumbers = () => {
 
   return (
     <section id="vip-numbers" className="vip-section">
+      
+      {/* --- ADDED: Background Animated Blobs --- */}
+      <div className="vip-bg-animation">
+        <div className="blob blob-1"></div>
+        <div className="blob blob-2"></div>
+        <div className="blob blob-3"></div>
+      </div>
+
       <Container>
         <div className="text-center mb-4 mb-md-5">
           <h6 className="text-primary-vi fw-bold text-uppercase small ls-2">Inventory</h6>

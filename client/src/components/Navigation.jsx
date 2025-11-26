@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Navbar, Container, Nav } from 'react-bootstrap';
+import { Navbar, Container, Nav, Offcanvas } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaUserShield } from 'react-icons/fa';
 import viLogo from '../assets/vi-logo.webp'; 
@@ -8,35 +8,62 @@ import '../styles/navigation.css';
 const Navigation = () => {
   const [expanded, setExpanded] = useState(false);
 
+  // Function to close sidebar
+  const closeMenu = () => setExpanded(false);
+
   return (
     <Navbar 
       expand="lg" 
       fixed="top"
       className="custom-navbar"
       expanded={expanded}
-      onToggle={() => setExpanded(!expanded)}
+      onToggle={(val) => setExpanded(val)}
     >
       <Container>
-        <Navbar.Brand as={Link} to="/" onClick={() => setExpanded(false)}>
+        <Navbar.Brand as={Link} to="/" onClick={closeMenu}>
           <img src={viLogo} alt="Vi Logo" height="45" />
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" className="border-0 shadow-none" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto align-items-center">
-            <Nav.Link href="#home" className="nav-link-custom" onClick={() => setExpanded(false)}>Home</Nav.Link>
-            <Nav.Link href="#vip-numbers" className="nav-link-custom" onClick={() => setExpanded(false)}>VIP Numbers</Nav.Link>
-            <Nav.Link href="#services" className="nav-link-custom" onClick={() => setExpanded(false)}>Services</Nav.Link>
-            <Nav.Link href="#contact" className="nav-link-custom" onClick={() => setExpanded(false)}>Contact Us</Nav.Link>
-            
-            <Link 
-              to="/admin/login" 
-              className="nav-link admin-btn-nav ms-lg-3 mt-3 mt-lg-0"
-              onClick={() => setExpanded(false)}
-            >
-               <FaUserShield className="me-2"/>Admin
-            </Link>
-          </Nav>
-        </Navbar.Collapse>
+        
+        {/* Toggle Button (Hamburger) */}
+        <Navbar.Toggle aria-controls="offcanvasNavbar" className="border-0 shadow-none" />
+        
+        {/* 
+           Responsive Side Menu 
+           - 'placement="end"' puts it on the right side.
+           - The 'sidebar-menu' class now ONLY affects mobile via CSS media queries.
+        */}
+        <Navbar.Offcanvas
+          id="offcanvasNavbar"
+          aria-labelledby="offcanvasNavbarLabel"
+          placement="end"
+          className="sidebar-menu" 
+          restoreFocus={false}
+          show={expanded}
+          onHide={closeMenu}
+        >
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title id="offcanvasNavbarLabel">
+              Menu
+            </Offcanvas.Title>
+          </Offcanvas.Header>
+          
+          <Offcanvas.Body>
+            <Nav className="justify-content-end flex-grow-1 pe-3 align-items-lg-center">
+              <Nav.Link href="#home" className="nav-link-custom" onClick={closeMenu}>Home</Nav.Link>
+              <Nav.Link href="#vip-numbers" className="nav-link-custom" onClick={closeMenu}>VIP Numbers</Nav.Link>
+              <Nav.Link href="#services" className="nav-link-custom" onClick={closeMenu}>Services</Nav.Link>
+              <Nav.Link href="#contact" className="nav-link-custom" onClick={closeMenu}>Contact Us</Nav.Link>
+
+              <Link 
+                to="/admin/login" 
+                className="nav-link admin-btn-nav ms-lg-3 mt-3 mt-lg-0"
+                onClick={closeMenu}
+              >
+                 <FaUserShield className="me-2"/>Admin
+              </Link>
+            </Nav>
+          </Offcanvas.Body>
+        </Navbar.Offcanvas>
       </Container>
     </Navbar>
   );

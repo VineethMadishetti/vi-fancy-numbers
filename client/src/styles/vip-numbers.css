@@ -3,15 +3,95 @@
 .vip-section {
   padding: 60px 0; 
   background-color: #FDF6EC;
+  position: relative; /* Essential for containing the absolute background */
+  overflow: hidden;   /* Prevents the glow from spilling out */
+}
+
+/* --- BACKGROUND ANIMATION WRAPPER --- */
+.vip-bg-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* Behind content */
+  pointer-events: none; /* Let clicks pass through */
+  opacity: 0.6; /* Subtle intensity */
+}
+
+/* The Glowing Blobs */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px); /* The "Glass Blur" Effect */
+  animation: float 15s infinite ease-in-out alternate;
+}
+
+/* Red Blob */
+.blob-1 {
+  background: rgba(218, 41, 28, 0.4); /* Vi Red */
+  width: 50vw;
+  height: 50vw;
+  max-width: 500px;
+  max-height: 500px;
+  top: -100px;
+  left: -100px;
+  animation-delay: 0s;
+}
+
+/* Yellow Blob */
+.blob-2 {
+  background: rgba(255, 198, 0, 0.4); /* Vi Yellow */
+  width: 60vw;
+  height: 60vw;
+  max-width: 600px;
+  max-height: 600px;
+  bottom: -100px;
+  right: -100px;
+  animation-delay: -5s;
+}
+
+/* Mixed Middle Blob */
+.blob-3 {
+  background: rgba(218, 41, 28, 0.3);
+  width: 40vw;
+  height: 40vw;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-name: float-center;
+  animation-duration: 20s;
+}
+
+/* --- ANIMATION KEYFRAMES --- */
+@keyframes float {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(50px, 50px) scale(1.1); }
+  100% { transform: translate(-30px, 20px) scale(0.9); }
+}
+
+@keyframes float-center {
+  0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+  50% { transform: translate(-40%, -60%) scale(1.2) rotate(45deg); }
+  100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+}
+
+/* --- Z-INDEX FIXES --- */
+/* Ensure content sits ON TOP of the animation */
+.vip-section > .container {
+  position: relative;
+  z-index: 2;
 }
 
 /* --- FILTER BAR --- */
 .filter-bar {
-  background: white;
+  background: rgba(255, 255, 255, 0.85); /* Slightly transparent */
+  backdrop-filter: blur(12px); /* Glassmorphism on the filter bar itself */
   padding: 20px;
   border-radius: 20px;
   box-shadow: var(--shadow-sm);
   margin-bottom: 40px;
+  border: 1px solid rgba(255,255,255,0.5);
 }
 
 .search-input {
@@ -22,7 +102,7 @@
   font-weight: 500;
   font-size: 1rem;
   transition: all 0.2s;
-  background: #fdfdfd;
+  background: white; /* Keep inputs solid white */
 }
 
 .search-input:focus {
@@ -44,8 +124,9 @@
 /* --- CARD & GLOW EFFECT --- */
 .number-card {
   border-radius: 18px;
-  background: white;
-  border: 1px solid rgba(0,0,0,0.06);
+  background: rgba(255, 255, 255, 0.9); /* Slight transparency */
+  backdrop-filter: blur(5px); /* Glass feel on cards */
+  border: 1px solid rgba(255,255,255,0.8);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   position: relative;
   overflow: visible; 
@@ -54,9 +135,10 @@
 
 .number-card:hover {
   transform: translateY(-6px);
+  background: white; /* Solid white on hover */
   border-color: rgba(255, 191, 72, 0.836); 
   box-shadow: 
-    0 15px 35px -5px rgba(255, 73, 41, 0.575), 
+    0 15px 35px -5px rgba(255, 73, 41, 0.4), 
     0 0 12px rgba(255, 205, 67, 0.2);         
   z-index: 10; 
 }
@@ -74,19 +156,25 @@
   .vip-section {
     padding: 30px 0;
   }
+  
+  /* Reduce animation intensity on mobile for performance */
+  .vip-bg-animation {
+    opacity: 0.4; 
+  }
 
   /* Compact Filter Bar */
   .filter-bar {
-    padding: 10px 12px; /* Tighter container */
+    padding: 10px 12px; 
     margin-bottom: 20px;
     border-radius: 14px;
+    background: rgba(255,255,255,0.9);
   }
   
   .search-input {
     padding: 0 10px;
-    padding-left: 30px !important; /* Tighter icon spacing */
-    font-size: 0.8rem; /* Smaller text */
-    height: 34px; /* Reduced Height */
+    padding-left: 30px !important; 
+    font-size: 0.8rem; 
+    height: 34px; 
   }
 
   .filter-icon {
@@ -95,9 +183,9 @@
   }
 
   .reset-btn {
-    height: 34px; /* Match input height */
+    height: 34px; 
     padding: 0 !important;
-    font-size: 0.9rem !important; /* Icon size */
+    font-size: 0.9rem !important; 
     display: flex;
     align-items: center;
     justify-content: center;

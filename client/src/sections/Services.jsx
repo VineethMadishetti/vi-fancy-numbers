@@ -1,6 +1,6 @@
 import { Container, Row, Col } from 'react-bootstrap';
-import { FaBirthdayCake, FaStar, FaBuilding } from 'react-icons/fa';
-import '../styles/services.css'; // Import the new styles
+import { FaBirthdayCake, FaStar, FaBuilding, FaPeopleCarry } from 'react-icons/fa';
+import '../styles/services.css'; 
 
 const ServiceCard = ({ icon, title, desc }) => (
   <div className="service-card text-center">
@@ -17,13 +17,17 @@ const ServiceCard = ({ icon, title, desc }) => (
 const Services = () => {
   return (
     <section id="services" className="services-section">
-      <Container>
-        <div className="text-center mb-5">
+      
+      {/* Background Overlay */}
+      <div className="services-overlay"></div>
+
+      <Container className="services-content-wrapper">
+        <div className="text-center mb-5 services-header">
           <h2 className="fw-bold display-6">Tailored Services</h2>
-          <p className="text-muted">We go beyond just selling numbers.</p>
+          <p>We go beyond just selling numbers.</p>
         </div>
         
-        <Row className="g-4 g-md-4">
+        <Row className="g-3 g-md-4">
            <Col md={3}>
              <ServiceCard 
                icon={<FaBirthdayCake />} 
@@ -41,13 +45,13 @@ const Services = () => {
            <Col md={3}>
              <ServiceCard 
                icon={<FaBuilding />} 
-               title="Business" 
-               desc="Bulk & Similar series numbers for your office staff to build brand trust." 
+               title="Business Series" 
+               desc="Consecutive or similar series numbers for your office staff to build brand trust." 
              />
            </Col>
            <Col md={3}>
              <ServiceCard 
-               icon={<FaBuilding />} 
+               icon={<FaPeopleCarry />} 
                title="Family" 
                desc="keep your family mobile numbers similar with just one-digit difference" 
              />

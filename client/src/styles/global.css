@@ -65,6 +65,5 @@ span, p, a, div {
 .btn-vi:hover {
   background: #b01c11;
   transform: translateY(-2px);
-  color: white;
   box-shadow: 0 6px 20px rgba(218, 41, 28, 0.4);
 }
