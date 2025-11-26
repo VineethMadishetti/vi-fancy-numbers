@@ -7,8 +7,8 @@ const generateToken = (res, userId) => {
 
   res.cookie('jwt', token, {
     httpOnly: true, // Prevents client-side JS from reading the cookie (XSS protection)
-    secure: process.env.NODE_ENV !== 'development', // Use secure cookies in production (HTTPS)
-    sameSite: 'strict', // CSRF protection
+    secure: process.env.NODE_ENV !== 'development',// Use secure cookies in production (HTTPS)
+    sameSite: 'none', // CSRF protection
     maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
   });
 };
