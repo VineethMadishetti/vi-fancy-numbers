@@ -6,7 +6,7 @@ import '../styles/hero.css';
 
 const Hero = () => {
   return (
-    <section id="home" className="hero-wrapper">
+    <section id="home" className="hero-wrapper hero-background">
       <Container>
         <Row className="align-items-center gy-5">
           <Col lg={6}>

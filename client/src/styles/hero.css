@@ -1,10 +1,25 @@
+
 .hero-wrapper {
+  min-height: 100%;
+  width: 100%;
   margin-top: 42px; /* Navbar height compensation */
   padding: 80px 0 60px;
-  background: radial-gradient(circle at top right, #fff5f5 0%, #ffffff 40%);
   overflow: hidden;
   position: relative;
 }
+
+.hero-background {
+  position: relative;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  background-image: linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+    linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
+  background-size: 20px 30px;
+}
+
 
 .hero-badge {
   background: #ffebeb;
