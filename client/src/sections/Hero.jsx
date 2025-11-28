@@ -15,7 +15,7 @@ const Hero = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <span className="hero-badge">Official Vi Partner</span>
+              <span className="hero-badge mt-1">Official Vi Partner</span>
               <h1 className="display-4 hero-title mb-3">
                 Get Noticed,<br/>
                 <span className="text-primary-vi"> Stay Remembered.</span>
